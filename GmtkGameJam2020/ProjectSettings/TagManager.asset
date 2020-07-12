@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PigPen
+  - BlackHole
+  - Pig
   layers:
   - Default
   - TransparentFX

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Strings
 {
-    public static string ScoreString = "Score: ";
+    public static string ScoreString = "Score:";
 }
