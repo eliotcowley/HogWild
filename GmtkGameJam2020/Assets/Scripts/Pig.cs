@@ -16,16 +16,16 @@ public class Pig : MonoBehaviour
     private float maxTimeBeforeSwitchDirection = 10f;
 
     [SerializeField]
-    private float wanderForceMin = 0.01f;
+    private float wanderForceMin = 0.1f;
 
     [SerializeField]
-    private float wanderForceMax = 0.1f;
+    private float wanderForceMax = 0.5f;
 
     [SerializeField]
     private float panicDistance = 5f;
 
     [SerializeField]
-    private float panicSpeed = 0.2f;
+    private float panicSpeed = 3f;
 
     [SerializeField]
     private float rotateSpeed = 5f;
@@ -33,30 +33,43 @@ public class Pig : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
-    private AnimalState state = AnimalState.Wandering;
+    [SerializeField]
+    private AudioClip panicClip;
+
+    [SerializeField]
+    private AudioClip dieClip;
+
+    private AnimalState state = AnimalState.Idle;
     private Rigidbody rb;
     private float wanderTimer = 0f;
     private float wanderTimeMax;
     private Vector3 wanderDir = Vector3.zero;
     private float wanderSpeed = 0f;
     private AudioSource audioSource;
+    private bool isStartup = true;
 
     private void Start()
     {
         this.rb = GetComponent<Rigidbody>();
         this.audioSource = GetComponent<AudioSource>();
         this.wanderTimeMax = Random.Range(this.minTimeBeforeSwitchDirection, this.maxTimeBeforeSwitchDirection);
-        SetNewWanderForce();
+        StartCoroutine(Startup());
     }
 
     private void Update()
     {
+        if (this.isStartup)
+        {
+            return;
+        }
         if (Vector3.Distance(this.transform.position, Player.Instance.transform.position) < this.panicDistance)
         {
             if (this.state != AnimalState.Panicked)
             {
                 this.state = AnimalState.Panicked;
                 this.animator.SetBool(AnimationParameters.Panicked, true);
+                this.audioSource.clip = this.panicClip;
+                this.audioSource.Play();
             }
         }
         else if (this.state != AnimalState.Wandering)
@@ -85,8 +98,12 @@ public class Pig : MonoBehaviour
                 break;
         }
 
-        //this.transform.rotation = Quaternion.LookRotation(this.wanderDir);
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(this.wanderDir), this.rotateSpeed * Time.deltaTime);
+        if (this.wanderDir.magnitude > 0f)
+        {
+            this.transform.rotation =
+                Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(this.wanderDir), this.rotateSpeed * Time.deltaTime);
+        }
+
         this.transform.Translate(this.wanderDir * this.wanderSpeed * Time.deltaTime, Space.World);
     }
 
@@ -101,6 +118,7 @@ public class Pig : MonoBehaviour
         if (other.gameObject.CompareTag(Tags.BlackHole))
         {
             this.rb.detectCollisions = false;
+            this.audioSource.clip = this.dieClip;
             this.audioSource.Play();
             StartCoroutine(other.GetComponent<BlackHole>().ExplodeCoroutine());
         }
@@ -127,5 +145,13 @@ public class Pig : MonoBehaviour
     {
         Gizmos.DrawWireSphere(this.transform.position, this.panicDistance);
         Gizmos.DrawRay(this.transform.position, this.wanderDir);
+    }
+
+    private IEnumerator Startup()
+    {
+        yield return new WaitForSeconds(GameManager.Instance.StartupTime);
+        this.state = AnimalState.Wandering;
+        SetNewWanderForce();
+        this.isStartup = false;
     }
 }

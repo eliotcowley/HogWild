@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         this.character = GetComponent<CharacterController>();
+        this.CanMove = false;
     }
 
     private void Update()

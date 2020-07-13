@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public float StartupTime = 3f;
+
     private int score = 0;
     public int Score 
     { 
@@ -26,16 +28,15 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public float Timer = 0f;
 
+    [HideInInspector]
+    public bool IsTimerOn = false;
+
     [SerializeField]
     private Transform pigContainer;
 
     [SerializeField]
     private float TimeSeconds = 60f;
 
-    [SerializeField]
-    private float timeBetweenText = 1f;
-
-    private bool timerOn = true;
     private bool canRestart = false;
 
     private void Awake()
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (this.timerOn)
+        if (this.IsTimerOn)
         {
             if (this.Timer >= 0f)
             {
@@ -63,17 +64,22 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        this.timerOn = false;
+        this.IsTimerOn = false;
         StartCoroutine(UIManager.Instance.SetGameOverCoroutine());
         this.canRestart = true;
         Player.Instance.CanMove = false;
     }
 
-    public void OnSubmit(InputValue value)
+    public void OnSubmit()
     {
         if (this.canRestart)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+    }
+    
+    public void OnCancel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

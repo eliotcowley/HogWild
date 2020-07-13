@@ -5,5 +5,6 @@ using UnityEngine;
 public enum AnimalState
 {
     Wandering,
-    Panicked
+    Panicked,
+    Idle
 }

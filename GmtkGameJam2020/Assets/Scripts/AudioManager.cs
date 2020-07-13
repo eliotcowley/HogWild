@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -15,11 +16,22 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioClip pigCatchSound;
 
+    [SerializeField]
+    private GameObject audioManagerPrefab;
+
     private Dictionary<Sfx, AudioClip> sfxDictionary;
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
 
         this.sfxDictionary = new Dictionary<Sfx, AudioClip>()
         {

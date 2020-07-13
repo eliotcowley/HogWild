@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 2553773003031693076}
   - component: {fileID: 2553773003031693077}
   - component: {fileID: 2553773003031693098}
-  - component: {fileID: 2553773003031693097}
   - component: {fileID: 2553773003031693078}
-  - component: {fileID: 6013253353869722987}
+  - component: {fileID: 2715515509155662191}
   m_Layer: 0
   m_Name: PigGfx
   m_TagString: Pig
@@ -99,29 +98,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &2553773003031693097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2553773003031693079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f792b1431dc6d746b1540785fe21b93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsBeingSuckedIntoBlackHole: 0
-  minTimeBeforeSwitchDirection: 1
-  maxTimeBeforeSwitchDirection: 10
-  wanderForceMin: 0.1
-  wanderForceMax: 0.5
-  panicDistance: 5
-  panicSpeed: 5
-  rotateSpeed: 5
-  animator: {fileID: 2553773004039135544}
-  panicClip: {fileID: 8300000, guid: 88f3c826c6ea5d64fb8d66babb06e0af, type: 3}
-  dieClip: {fileID: 8300000, guid: 05e904a3586c390408679f11f47be899, type: 3}
 --- !u!65 &2553773003031693078
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,103 +111,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4093125, y: 0.697812, z: 1.1939198}
   m_Center: {x: 0.000000014901161, y: 0.34174016, z: 0.11479871}
---- !u!82 &6013253353869722987
-AudioSource:
+--- !u!114 &2715515509155662191
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2553773003031693079}
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 37cea1e49f4c34840b0f8e037a32fd36,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: 05e904a3586c390408679f11f47be899, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101cbd27f815dd409aab71cd01c9398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minTimeBeforeSwitchDirection: 1
+  maxTimeBeforeSwitchDirection: 10
+  wanderForceMin: 0.1
+  wanderForceMax: 0.5
+  rotateSpeed: 5
+  animator: {fileID: 2553773004039135544}
+  timeBeforeAnimationMax: 1
 --- !u!1 &2553773004039135546
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +141,7 @@ GameObject:
   - component: {fileID: 2553773004039135545}
   - component: {fileID: 2553773004039135544}
   m_Layer: 0
-  m_Name: Pig
+  m_Name: TitlePig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,7 +172,7 @@ Animator:
   m_GameObject: {fileID: 2553773004039135546}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0b54733d5329ad34db9d1e5fe04739e6, type: 3}
-  m_Controller: {fileID: 9100000, guid: def34102cd4b7e14e9002a9926af37ce, type: 2}
+  m_Controller: {fileID: 9100000, guid: c6a86fe6dae77ca4baef3416822fec31, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
